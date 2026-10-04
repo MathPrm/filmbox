@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: filmbox
+    restart: always
+    environment:
+      POSTGRES_USER: filmboxuser
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: filmbox
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: filmbox-backend
+    restart: always
+    environment:
+      PORT: 3001
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: filmboxuser
+      PGPASSWORD: postgres
+      PGDATABASE: filmbox
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend
+    container_name: filmbox-frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

@@ -1,0 +1,31 @@
+# Dépendances
+node_modules/
+*/node_modules/
+
+# Environnement et secrets
+.env
+*.env
+!.env.example
+
+# Builds et outputs
+dist/
+dist-ssr/
+build/
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Système et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Données PostgreSQL locales temporaires
+pgdata/
