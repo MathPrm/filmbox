@@ -11,6 +11,7 @@ export const pool = new Pool({
   user: process.env.PGUSER || 'filmboxuser',
   password: process.env.PGPASSWORD || 'postgres',
   database: process.env.PGDATABASE || 'filmbox',
+  client_encoding: 'UTF8',
 });
 
 export const query = (text, params) => pool.query(text, params);

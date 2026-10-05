@@ -1,6 +1,7 @@
 -- =====================================================================
 -- Séance 4 : Missions M13 à M14 (Procédures et Triggers)
 -- =====================================================================
+SET client_encoding = 'UTF8';
 
 -- M13 : Procédure stockée (Ajout d'une note et d'un visionnage en une seule transaction)
 CREATE OR REPLACE PROCEDURE ajouter_visionnage_et_note(

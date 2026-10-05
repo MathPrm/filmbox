@@ -1,6 +1,7 @@
 -- =====================================================================
 -- Séance 2 : Missions M7 à M10 (Corrigé avec structure exacte)
 -- =====================================================================
+SET client_encoding = 'UTF8';
 
 -- M7 : Préparation de la colonne JSONB et données de test
 ALTER TABLE films ADD COLUMN IF NOT EXISTS metadata JSONB;

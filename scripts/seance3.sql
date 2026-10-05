@@ -1,6 +1,7 @@
 -- =====================================================================
 -- Séance 3 : Missions M11 à M12 (Optimisation et Index)
 -- =====================================================================
+SET client_encoding = 'UTF8';
 
 -- Activation de l'extension officielle PostgreSQL pour la recherche textuelle floue
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
