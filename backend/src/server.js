@@ -64,7 +64,6 @@ app.get('/api/movies/catalog', async (req, res) => {
   }
 });
 
-// M12 : Recherche de films optimisée par l'Index Trigramme
 app.get('/api/movies/search', async (req, res) => {
   const { q } = req.query;
   
@@ -81,6 +80,21 @@ app.get('/api/movies/search', async (req, res) => {
     `, [`%${q}%`]);
     
     res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/movies/rate', async (req, res) => {
+  const { utilisateur_id, film_id, note } = req.body;
+  
+  if (!utilisateur_id || !film_id || !note) {
+    return res.status(400).json({ error: 'utilisateur_id, film_id et note sont requis' });
+  }
+
+  try {
+    await query(`CALL ajouter_visionnage_et_note($1::INTEGER, $2::INTEGER, $3::NUMERIC, CURRENT_DATE)`, [utilisateur_id, film_id, note]);
+    res.json({ success: true, message: 'Note et visionnage enregistrés avec succès' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
