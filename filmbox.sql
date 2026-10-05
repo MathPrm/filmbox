@@ -4,6 +4,7 @@
 --  Script ré-exécutable : il supprime puis recrée toutes les tables.
 --  À charger dans une base dédiée :  CREATE DATABASE filmbox;
 -- =====================================================================
+SET client_encoding = 'UTF8';
 
 -- (listes et liste_films sont créées pendant la mission M1)
 DROP TABLE IF EXISTS liste_films, listes, journal, notes, casting, films, sagas, personnes, utilisateurs CASCADE;
