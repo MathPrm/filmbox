@@ -64,4 +64,26 @@ app.get('/api/movies/catalog', async (req, res) => {
   }
 });
 
+// M12 : Recherche de films optimisée par l'Index Trigramme
+app.get('/api/movies/search', async (req, res) => {
+  const { q } = req.query;
+  
+  if (!q) {
+    return res.json([]);
+  }
+
+  try {
+    const { rows } = await query(`
+      SELECT id, titre, annee, genre 
+      FROM films 
+      WHERE titre ILIKE $1 
+      ORDER BY annee DESC
+    `, [`%${q}%`]);
+    
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
