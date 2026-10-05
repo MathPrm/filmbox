@@ -42,4 +42,26 @@ app.get('/api/users/active', async (req, res) => {
   }
 });
 
+app.get('/api/movies/catalog', async (req, res) => {
+  try {
+    const { rows } = await query(`
+      SELECT 
+        v.id, 
+        v.titre, 
+        v.annee, 
+        v.genre, 
+        v.moyenne_classique, 
+        v.nb_votes,
+        calculer_score_imdb(v.id) AS score_pondere
+      FROM vue_catalogue_films v
+      WHERE v.nb_votes > 0
+      ORDER BY score_pondere DESC
+      LIMIT 20;
+    `);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
